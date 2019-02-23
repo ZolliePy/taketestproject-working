@@ -1,10 +1,11 @@
 {% extends "TakeTestApp/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h1>{{ user.userprofile.usertype }}</h1>
+<br>
+<h5 class="text-primary">Username: <span class="text-success">{{ user.username }}</span></h5>
 {% if user.userprofile.usertype == 'o' %}
-  <h1>Hello Organization</h1>
+  <h5 class="text-primary">Usertype: <span class="text-success">Organization</span></h5>
 {% else %}
-  <h1>Hello Student</h1>
+  <h5 class="text-primary">Usertype: <span class="text-success">Student</span></h5>
 {% endif %}
 {% endblock content %}

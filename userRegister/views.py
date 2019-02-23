@@ -15,7 +15,7 @@ def signup(request):
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
+            # login(request, user) -->Auto Logins after registration.
             messages.success(request, 'Account created for {}, You may login now!'.format(user.username))
             return redirect('login')
     else:
