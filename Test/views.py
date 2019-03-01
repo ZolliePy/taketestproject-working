@@ -13,13 +13,22 @@ def post(request):
         form = TestForm(request.POST, request.FILES)
         # check whether it's valid:
         if form.is_valid():
-            form.save()
+            fulltest = form.save(commit=False)
+            fulltest.user = request.user
+            fulltest.Uploader_info = request.user
             TestName = form.cleaned_data.get('TestName')
             File = form.cleaned_data.get('InputTextFile')
+            fulltest.save()
             messages.success(request, 'Test {} Posted successfully'.format(TestName))
             return redirect('Test-Making')
+        else:
+            parameters = {
+              'form': form,
+              'error': form.errors.as_ul()
+            }
+            return render(request, 'Test/post.html', parameters)
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = TestForm()
-    return render(request, 'Test/post.html', {'form': form})
+        return render(request, 'Test/post.html', {'form': form})

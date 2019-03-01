@@ -1,5 +1,11 @@
 from django.contrib import admin
 from .models import TestInfo
 
+class TestInfoAdmin(admin.ModelAdmin):
 
-admin.site.register(TestInfo)
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.Uploader_info = request.user.username
+        obj.save()
+
+admin.site.register(TestInfo, TestInfoAdmin)
